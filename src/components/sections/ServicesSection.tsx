@@ -68,17 +68,17 @@ export function ServicesSection() {
   // Utiliser useInView pour chaque section animée
   const isTitleInView = useInView(titleRef, {
     once: false,
-    margin: "-100px"
+    margin: "-100px",
   });
 
   const isImageInView = useInView(imageRef, {
     once: false,
-    margin: "-100px"
+    margin: "-100px",
   });
 
   const isCtaInView = useInView(ctaRef, {
     once: false,
-    margin: "-100px"
+    margin: "-100px",
   });
 
   // Détecter la direction du défilement
@@ -115,7 +115,11 @@ export function ServicesSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.5, 1, 1, 0.5]);
 
   return (
-    <section ref={sectionRef} id="services" className="relative overflow-hidden bg-background section-padding">
+    <section
+      ref={sectionRef}
+      id="services"
+      className="py-24 md:py-36 bg-secondary/30 relative overflow-hidden"
+    >
       <div className="container relative z-10 px-4 sm:px-8 md:px-12">
         <div className="mx-auto mb-20">
           <motion.div
@@ -129,8 +133,9 @@ export function ServicesSection() {
               Services de Modélisation 3D
             </h2>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
-              Choisissez le forfait qui correspond le mieux à vos besoins de visualisation immobilière.
-              Chaque offre est conçue pour mettre en valeur votre propriété de manière unique.
+              Choisissez le forfait qui correspond le mieux à vos besoins de
+              visualisation immobilière. Chaque offre est conçue pour mettre en
+              valeur votre propriété de manière unique.
             </p>
           </motion.div>
         </div>

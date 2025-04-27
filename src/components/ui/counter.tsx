@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import type React from "react";
+import { useEffect, useState, useRef } from "react";
 import { useInView } from "framer-motion";
 
 interface CounterProps {
@@ -128,7 +129,7 @@ export const AnimatedValue: React.FC<{
     return <span className={className}>{value}</span>;
   }
 
-  const numericValue = parseFloat(numericMatch[0]);
+  const numericValue = Number.parseFloat(numericMatch[0]);
   const prefix = value.substring(0, value.indexOf(numericMatch[0]));
   const suffix = value.substring(value.indexOf(numericMatch[0]) + numericMatch[0].length);
 

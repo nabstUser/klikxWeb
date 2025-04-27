@@ -2,8 +2,10 @@
 
 import React, { useRef } from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { motion, useInView } from "framer-motion";
 import { Link } from "react-scroll";
+import { Arrow } from "@/components/ui/arrow";
 
 const features = [
   {
@@ -71,7 +73,10 @@ export function FeaturesSection() {
   };
 
   return (
-    <section className="bg-background py-24 md:py-32" id="features">
+    <section
+      id="features"
+      className="section-padding bg-background relative overflow-hidden py-24 md:py-32"
+    >
       <div className="container-wide">
         <div className="max-w-3xl mx-auto mb-16">
           <motion.div
@@ -108,18 +113,22 @@ export function FeaturesSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isButtonInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-          className="mt-16 flex justify-center"
+          className="mt-10 flex justify-center"
         >
-          <Button asChild variant="arrow" size="link" className="group text-lg">
+          <Button
+            asChild
+            className="rounded-none bg-primary hover:bg-primary/90 text-white px-8 py-6 text-base shadow-md transition-all duration-300 hover:-translate-y-0.5"
+          >
             <Link
               to="services"
               spy={true}
               smooth={true}
               offset={-70}
               duration={500}
-              className="cursor-pointer"
+              className="cursor-pointer flex items-center gap-2"
             >
               Voir nos services
+              <Arrow direction="up-right" className="ml-2 w-5 h-5" />
             </Link>
           </Button>
         </motion.div>

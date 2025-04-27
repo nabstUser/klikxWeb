@@ -71,7 +71,10 @@ export function ProcessSection() {
   );
 
   return (
-    <section id="process" className="bg-background section-padding">
+    <section
+      id="process"
+      className="py-24 md:py-36 bg-background relative overflow-hidden"
+    >
       <div className="container px-4 sm:px-8 md:px-12">
         <div className="mx-auto mb-20">
           <motion.div

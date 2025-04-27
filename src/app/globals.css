@@ -10,19 +10,19 @@
     --card-foreground: 0 0% 12%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 12%;
-    --primary: 270 65% 55%;
+    --primary: 225 80% 60%;
     --primary-foreground: 0 0% 98%;
     --secondary: 220 15% 96%;
     --secondary-foreground: 0 0% 12%;
     --muted: 220 14% 96%;
     --muted-foreground: 220 10% 46%;
-    --accent: 184 40% 56%;
+    --accent: 210 100% 40%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 270 65% 55%;
+    --ring: 225 80% 60%;
     --radius: 0rem;
   }
 
@@ -33,19 +33,19 @@
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 270 65% 55%;
+    --primary: 225 80% 60%;
     --primary-foreground: 0 0% 98%;
     --secondary: 215 28% 12%;
     --secondary-foreground: 0 0% 98%;
     --muted: 215 28% 12%;
     --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 184 40% 56%;
+    --accent: 210 100% 40%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
     --border: 215 28% 12%;
     --input: 215 28% 12%;
-    --ring: 270 65% 55%;
+    --ring: 225 80% 60%;
   }
 }
 
@@ -64,12 +64,14 @@
     @apply font-bold tracking-tight;
   }
   h1 {
-    @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase;
-    letter-spacing: -0.02em;
+    @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase font-bold;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
   }
   h2 {
     @apply text-4xl sm:text-5xl md:text-6xl uppercase;
     letter-spacing: -0.02em;
+    line-height: 0.95;
   }
   h3 {
     @apply text-3xl sm:text-4xl uppercase;
@@ -82,12 +84,13 @@
 
 @layer utilities {
   .giant-heading {
-    @apply text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight uppercase;
+    @apply text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight uppercase;
     letter-spacing: -0.03em;
+    line-height: 0.9;
   }
 
   .section-padding {
-    @apply py-24 md:py-36;
+    @apply py-20 md:py-28;
   }
 
   .container-wide {
@@ -111,7 +114,7 @@
   }
 
   .number-stat {
-    @apply text-6xl sm:text-7xl md:text-8xl font-bold;
+    @apply text-5xl sm:text-6xl md:text-7xl font-bold;
     letter-spacing: -0.02em;
   }
 
@@ -120,10 +123,34 @@
   }
 
   .uppercase-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
   }
 
-  /* Nouvelles classes */
+  /* Modern style classes */
+  .modern-section {
+    @apply py-20 relative overflow-hidden;
+  }
+
+  .modern-heading {
+    @apply text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight uppercase;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+  }
+
+  .modern-title {
+    @apply text-3xl sm:text-4xl md:text-5xl uppercase font-bold;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+
+  .modern-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .modern-card {
+    @apply bg-white p-6 border border-border shadow-sm transition-all duration-300 hover:shadow-md;
+  }
+
   .text-balance {
     text-wrap: balance;
   }

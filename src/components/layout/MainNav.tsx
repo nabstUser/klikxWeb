@@ -1,26 +1,25 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link as ScrollLink } from "react-scroll";
 
 const links = [
-  { href: "/", label: "Accueil" },
-  { href: "/about", label: "À propos" },
-  { href: "/services", label: "Services" },
-  { href: "/process", label: "Processus" },
-  { href: "/contact", label: "Contact" },
+  { to: "hero", label: "Accueil" },
+  { to: "features", label: "À propos" },
+  { to: "services", label: "Services" },
+  { to: "process", label: "Processus" },
+  { to: "contact", label: "Contact" },
 ];
 
 export function MainNav() {
-  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,40 +65,51 @@ export function MainNav() {
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
         isScrolled
-          ? "py-3 bg-background/90 backdrop-blur-md shadow-sm"
-          : "py-6 bg-transparent"
+          ? "py-3 bg-background/95 backdrop-blur-md shadow-sm"
+          : "py-5 bg-transparent"
       )}
     >
       <div className="container-wide">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link
-            href="/"
-            className="text-xl font-bold text-foreground flex items-center"
+          <ScrollLink
+            to="hero"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            className="text-xl font-bold text-foreground flex items-center cursor-pointer"
           >
-            <span className="mr-1 text-3xl text-primary">K</span>
-            <span className="tracking-tight">LIKX</span>
-          </Link>
+            <span className="text-2xl lg:text-3xl font-bold text-primary tracking-tight">KLIKX</span>
+          </ScrollLink>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
+          <div className="hidden md:flex items-center gap-8">
+            {links.map((link, index) => (
+              <ScrollLink
+                key={link.to}
+                to={link.to}
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
+                activeClass="text-primary"
+                onSetActive={() => setActiveSection(link.to)}
                 className={cn(
-                  "text-sm font-medium hover:text-primary transition-colors relative group py-2",
-                  pathname === link.href ? "text-primary" : "text-muted-foreground"
+                  "text-sm font-medium hover:text-primary transition-colors relative group py-2 cursor-pointer",
+                  activeSection === link.to ? "text-primary" : "text-muted-foreground"
                 )}
               >
-                {link.label}
+                <span className="flex items-center gap-1">
+                  {link.label}
+                </span>
                 <span
                   className={cn(
                     "absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full",
-                    pathname === link.href ? "w-full" : "w-0"
+                    activeSection === link.to ? "w-full" : "w-0"
                   )}
                 />
-              </Link>
+              </ScrollLink>
             ))}
           </div>
 
@@ -109,12 +119,19 @@ export function MainNav() {
               asChild
               variant="default"
               size="sm"
-              className="rounded-none px-5 py-6"
+              className="rounded-none px-6 py-4 text-sm bg-primary hover:bg-primary/90 text-white"
             >
-              <Link href="/contact" className="flex items-center gap-2">
+              <ScrollLink
+                to="contact"
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 Nous contacter
-                <ExternalLink size={16} className="ml-1" />
-              </Link>
+                <ExternalLink size={14} />
+              </ScrollLink>
             </Button>
           </div>
 
@@ -138,14 +155,17 @@ export function MainNav() {
             <SheetContent side="right" className="w-full sm:w-[350px] p-0">
               <div className="flex flex-col h-full p-6">
                 <div className="flex items-center justify-between mb-8">
-                  <Link
-                    href="/"
-                    className="text-xl font-bold"
+                  <ScrollLink
+                    to="hero"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="text-xl font-bold cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <span className="mr-1 text-3xl text-primary">K</span>
-                    <span>LIKX</span>
-                  </Link>
+                    <span className="text-2xl font-bold text-primary">KLIKX</span>
+                  </ScrollLink>
                   <Button
                     variant="ghost"
                     size="icon"
@@ -160,24 +180,30 @@ export function MainNav() {
                   <AnimatePresence>
                     {links.map((link, index) => (
                       <motion.div
-                        key={link.href}
+                        key={link.to}
                         custom={index}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
                         variants={menuItemVariants}
                       >
-                        <Link
-                          href={link.href}
+                        <ScrollLink
+                          to={link.to}
+                          spy={true}
+                          smooth={true}
+                          offset={-70}
+                          duration={500}
                           className={cn(
-                            "text-2xl font-medium py-2 hover:text-primary transition-colors block",
-                            pathname === link.href ? "text-primary" : "text-foreground"
+                            "text-xl font-medium py-2 hover:text-primary transition-colors block cursor-pointer",
+                            activeSection === link.to ? "text-primary" : "text-foreground"
                           )}
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          <span className="text-primary text-sm mr-2">0{index + 1}</span>
-                          {link.label}
-                        </Link>
+                          <span className="flex items-center">
+                            <span className="text-primary text-sm mr-2">0{index + 1}</span>
+                            {link.label}
+                          </span>
+                        </ScrollLink>
                       </motion.div>
                     ))}
                   </AnimatePresence>
@@ -186,16 +212,20 @@ export function MainNav() {
                 <div className="mt-auto pt-8">
                   <Button
                     asChild
-                    className="w-full rounded-none py-6"
+                    className="w-full rounded-none py-6 bg-primary text-white hover:bg-primary/90"
                   >
-                    <Link
-                      href="/contact"
+                    <ScrollLink
+                      to="contact"
+                      spy={true}
+                      smooth={true}
+                      offset={-70}
+                      duration={500}
+                      className="flex items-center justify-center gap-2 cursor-pointer"
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center justify-center gap-2"
                     >
                       Nous contacter
                       <ExternalLink size={16} />
-                    </Link>
+                    </ScrollLink>
                   </Button>
                 </div>
               </div>
