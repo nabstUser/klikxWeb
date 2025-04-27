@@ -4,44 +4,57 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { LayoutGrid, Layers, Eye, Clock, Sparkles, LineChart } from "lucide-react";
 import { useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-scroll";
 
 const features = [
   {
     icon: <LayoutGrid className="h-6 w-6" />,
-    title: "Clear Layout Visualization",
+    title: "Visualisation Claire",
     description:
-      "Our isometric view provides a complete overview of the property layout, helping potential guests understand the space before booking.",
+      "Notre vue isométrique offre une vision complète de l'agencement de la propriété, aidant les voyageurs à comprendre l'espace avant de réserver.",
   },
   {
     icon: <Layers className="h-6 w-6" />,
-    title: "Customizable Detail Levels",
+    title: "Niveaux de Détail Personnalisables",
     description:
-      "Choose the level of detail that matches your needs, from simple exterior models to fully detailed interior and exterior visualizations.",
+      "Choisissez le niveau de détail qui correspond à vos besoins, des modèles extérieurs simples jusqu'aux visualisations intérieures et extérieures complètes.",
   },
   {
     icon: <Eye className="h-6 w-6" />,
-    title: "Perspective Optimization",
+    title: "Optimisation des Perspectives",
     description:
-      "Isometric perspective offers the perfect balance between realism and clarity, optimizing space perception in a visually appealing way.",
+      "La perspective isométrique offre l'équilibre parfait entre réalisme et clarté, optimisant la perception de l'espace de manière visuellement attrayante.",
   },
   {
     icon: <Clock className="h-6 w-6" />,
-    title: "Quick Turnaround",
+    title: "Réalisation Rapide",
     description:
-      "Get your 3D models faster than traditional rendering services, with our streamlined workflow and efficient modeling techniques.",
+      "Obtenez vos modèles 3D plus rapidement que les services de rendu traditionnels, grâce à notre flux de travail optimisé et nos techniques de modélisation efficaces.",
+  }
+];
+
+const stats = [
+  {
+    number: "250+",
+    label: "Modèles 3D Créés",
+    color: "bg-primary",
   },
   {
-    icon: <Sparkles className="h-6 w-6" />,
-    title: "Visual Impact",
-    description:
-      "Stand out from other listings with unique, eye-catching visuals that showcase your property's best features in a memorable way.",
+    number: "96%",
+    label: "Taux de Satisfaction",
+    color: "bg-accent",
   },
   {
-    icon: <LineChart className="h-6 w-6" />,
-    title: "Proven Results",
-    description:
-      "Properties with 3D isometric models see increased engagement and booking rates, giving you a competitive edge in the marketplace.",
+    number: "30%",
+    label: "Augmentation des Réservations",
+    color: "bg-chart-3",
   },
+  {
+    number: "48h",
+    label: "Délai Moyen de Livraison",
+    color: "bg-chart-4",
+  }
 ];
 
 export function FeaturesSection() {
@@ -54,34 +67,77 @@ export function FeaturesSection() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-background py-20 md:py-32">
-      <motion.div
-        className="absolute top-0 right-0 -z-10 h-full w-full"
-        style={{
-          background: "radial-gradient(circle at 80% 50%, rgba(var(--primary), 0.08) 0%, transparent 50%)"
-        }}
-      />
-
+    <section ref={ref} id="about" className="relative overflow-hidden bg-background section-padding">
       <div className="container relative z-10 px-4 sm:px-8 md:px-12">
-        <div className="mx-auto mb-16 max-w-3xl text-center">
+        <div className="mx-auto mb-20 max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              Why Choose Isometric 3D Modeling
+            <h3 className="text-primary font-medium mb-4">Nos Avantages</h3>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl max-w-2xl">
+              Modélisation 3D Isométrique Professionnelle
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Discover how our specialized approach helps property listings stand out and attract more bookings
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
+              Klikx est une entreprise spécialisée dans la <strong>modélisation 3D isométrique réaliste</strong>, avec un degré de détail adapté en fonction de l'offre choisie. Nous nous adressons principalement aux <strong>propriétaires Airbnb et aux conciergeries</strong>.
             </p>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <div className="col-span-1 lg:col-span-2">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className={`${stat.color} text-white color-square`}
+            >
+              <div>
+                <div className="text-4xl font-bold mb-2">{stat.number}</div>
+                <div className="text-sm font-medium">{stat.label}</div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            style={{ y }}
+          >
+            <div className="relative overflow-hidden">
+              <Image
+                src="/images/isometric-house-2.jpg"
+                alt="Modèle 3D isométrique détaillé"
+                width={600}
+                height={700}
+                className="object-contain"
+              />
+            </div>
+          </motion.div>
+
+          <div className="space-y-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-2xl font-bold mb-6">Pourquoi choisir la modélisation 3D isométrique ?</h3>
+              <p className="text-muted-foreground mb-8">
+                Grâce à des techniques avancées de modélisation 3D, Klikx permet de donner vie aux espaces sous une perspective isométrique, idéale pour <strong>montrer clairement l'aménagement, optimiser l'espace et séduire les voyageurs</strong>.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
               {features.map((feature, index) => (
                 <motion.div
                   key={feature.title}
@@ -89,13 +145,8 @@ export function FeaturesSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="rounded-lg border bg-card p-6 shadow-sm"
-                  whileHover={{
-                    y: -5,
-                    boxShadow: "0 10px 30px -15px rgba(var(--primary), 0.2)"
-                  }}
                 >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center bg-primary text-white">
                     {feature.icon}
                   </div>
                   <h3 className="mb-2 text-xl font-medium">{feature.title}</h3>
@@ -104,37 +155,33 @@ export function FeaturesSection() {
               ))}
             </div>
           </div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="col-span-1 hidden lg:block"
-            style={{ y }}
-          >
-            <div className="relative h-full min-h-[500px] overflow-hidden rounded-lg">
-              <Image
-                src="/images/isometric-house-2.jpg"
-                alt="Detailed isometric house model"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-primary/10" />
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="absolute bottom-8 left-8 max-w-xs rounded-lg bg-background/80 p-6 backdrop-blur-sm"
-              >
-                <h3 className="mb-2 text-xl font-semibold">See the Difference</h3>
-                <p className="text-sm">
-                  Our isometric models provide clarity and detail that traditional photos cannot match, helping guests make informed decisions.
-                </p>
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-20 text-center"
+        >
+          <Button
+            asChild
+            size="lg"
+            className="rounded-none px-8 py-7 text-base"
+          >
+            <Link
+              to="contact"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="cursor-pointer"
+            >
+              Démarrer maintenant
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

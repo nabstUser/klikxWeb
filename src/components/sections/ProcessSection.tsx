@@ -1,97 +1,130 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-scroll";
 
 const steps = [
   {
     number: "01",
-    title: "Consultation & Requirements",
+    title: "Consultation & Besoins",
     description:
-      "We begin by understanding your property and visualization needs. Share property plans, photos, and any specific requirements you have.",
+      "Nous commençons par comprendre votre propriété et vos besoins de visualisation. Partagez les plans, photos, et toutes exigences spécifiques que vous avez.",
   },
   {
     number: "02",
-    title: "Proposal & Agreement",
+    title: "Proposition & Accord",
     description:
-      "Based on your requirements, we'll recommend the best package for your needs and provide a detailed proposal with timeline and deliverables.",
+      "Sur la base de vos exigences, nous recommandons le forfait le plus adapté et fournissons une proposition détaillée avec calendrier et livrables.",
   },
   {
     number: "03",
-    title: "3D Modeling & Design",
+    title: "Modélisation 3D",
     description:
-      "Our specialized team creates a detailed isometric model of your property, focusing on accurate proportions and layout visualization.",
+      "Notre équipe spécialisée crée un modèle isométrique détaillé de votre propriété, en se concentrant sur les proportions et la disposition précises.",
   },
   {
     number: "04",
-    title: "Texture & Details",
+    title: "Textures & Détails",
     description:
-      "We add textures, colors, and environmental details to bring your property to life with the appropriate level of detail for your chosen package.",
+      "Nous ajoutons textures, couleurs et détails environnementaux pour donner vie à votre propriété avec le niveau de détail adapté à votre forfait choisi.",
   },
   {
     number: "05",
-    title: "Review & Refinement",
+    title: "Révision & Affinage",
     description:
-      "Review the initial render and request any adjustments. We'll refine the model based on your feedback (number of revisions depends on your package).",
+      "Examinez le rendu initial et demandez des ajustements. Nous affinons le modèle selon vos commentaires (le nombre de révisions dépend de votre forfait).",
   },
   {
     number: "06",
-    title: "Final Delivery",
+    title: "Livraison Finale",
     description:
-      "Receive your completed high-resolution 3D isometric model(s) in the requested file formats, ready to enhance your property listings.",
+      "Recevez votre modèle 3D isométrique haute résolution dans les formats de fichiers demandés, prêt à valoriser vos annonces immobilières.",
   },
 ];
 
 export function ProcessSection() {
   return (
-    <section className="bg-muted/30 py-20 md:py-32">
+    <section id="process" className="bg-background section-padding">
       <div className="container px-4 sm:px-8 md:px-12">
-        <div className="mx-auto mb-16 max-w-3xl text-center">
+        <div className="mx-auto mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              Our Process
+            <h3 className="text-primary font-medium mb-4">Notre Méthode</h3>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl max-w-2xl">
+              Processus
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              From concept to completion, here's how we transform your property into a stunning 3D isometric visualization
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
+              Du concept à la réalisation, voici comment nous transformons votre propriété en une superbe visualisation 3D isométrique
             </p>
           </motion.div>
         </div>
 
-        <div className="relative mx-auto max-w-5xl">
-          {/* Vertical line connecting steps */}
-          <div className="absolute left-8 top-0 bottom-0 hidden w-0.5 bg-primary/30 md:block" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          <div className="space-y-16">
+            {steps.slice(0, 3).map((step, index) => (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative"
+              >
+                <div className="text-primary text-xs font-mono mb-2">{step.number}</div>
+                <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
+                <p className="text-muted-foreground">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
 
-          <div className="space-y-12 md:space-y-24">
-            {steps.map((step, index) => (
-              <div key={step.number} className="relative">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative flex flex-col gap-8 md:flex-row"
-                >
-                  <div className="flex flex-shrink-0 items-center md:w-64">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-xl font-bold text-white md:absolute md:z-10">
-                      {step.number}
-                    </div>
-                    <div className="ml-6 md:hidden">
-                      <h3 className="text-xl font-semibold">{step.title}</h3>
-                    </div>
-                  </div>
-                  <div className="ml-0 md:ml-32">
-                    <h3 className="mb-4 hidden text-xl font-semibold md:block">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
-                  </div>
-                </motion.div>
-              </div>
+          <div className="space-y-16">
+            {steps.slice(3).map((step, index) => (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (index + 3) * 0.1 }}
+                className="relative"
+              >
+                <div className="text-primary text-xs font-mono mb-2">{step.number}</div>
+                <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
+                <p className="text-muted-foreground">{step.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-24 text-center"
+        >
+          <Button
+            asChild
+            size="lg"
+            className="rounded-none px-10 py-7 text-base"
+          >
+            <Link
+              to="contact"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="cursor-pointer"
+            >
+              Commencer votre projet
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

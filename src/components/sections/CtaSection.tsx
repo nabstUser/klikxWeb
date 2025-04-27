@@ -1,48 +1,59 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
 
 export function CtaSection() {
   return (
-    <section className="relative overflow-hidden bg-primary py-20 md:py-32">
-      <div className="absolute inset-0 bg-[url('/images/isometric-houses.jpg')] bg-cover bg-center opacity-5" />
+    <section className="bg-background border-y section-padding">
       <div className="container relative px-4 sm:px-8 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mx-auto max-w-3xl text-center"
+          className="grid grid-cols-1 gap-12 items-center md:grid-cols-2 lg:gap-20"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Ready to Transform Your Property Listings?
-          </h2>
-          <p className="mt-6 text-lg text-white/80 md:text-xl">
-            Take the first step toward creating stunning 3D visualizations that will captivate potential guests and increase your bookings.
-          </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              variant="secondary"
-              className="rounded-full px-8 text-primary"
-            >
-              <Link href="/contact">Get Started</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="rounded-full border-white/20 px-8 text-white hover:bg-white/10 hover:text-white"
-            >
-              <Link href="/services">View Services</Link>
-            </Button>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+              <span className="block text-primary">Klikx</span>
+              Modèles 3D isométriques pour propriétaires Airbnb
+            </h2>
+            <p className="mt-6 text-lg text-muted-foreground">
+              Prêt à transformer vos annonces immobilières avec des visuels captivants qui augmenteront vos réservations ?
+            </p>
+          </div>
+
+          <div className="bg-primary p-8 md:p-12">
+            <div className="max-w-md mx-auto">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-6">
+                Démarrer un projet
+              </h3>
+              <p className="text-white/80 mb-8">
+                Franchissez la première étape vers la création de visualisations 3D époustouflantes qui captiveront vos clients potentiels.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                variant="secondary"
+                className="rounded-none px-8 text-primary w-full"
+              >
+                <ScrollLink
+                  to="contact"
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                  className="cursor-pointer"
+                >
+                  Nous contacter
+                </ScrollLink>
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>
-      <div className="absolute -bottom-48 -right-48 h-96 w-96 rounded-full bg-primary-foreground/10 blur-3xl" />
     </section>
   );
 }

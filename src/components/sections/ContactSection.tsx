@@ -39,25 +39,26 @@ export function ContactSection() {
   };
 
   return (
-    <section className="bg-background py-20 md:py-32">
+    <section id="contact" className="bg-muted/30 section-padding">
       <div className="container px-4 sm:px-8 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mx-auto max-w-3xl text-center"
+          className="mx-auto max-w-4xl mb-20"
         >
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            Get in <span className="text-primary">Touch</span>
+          <h3 className="text-primary font-medium mb-4">Contact</h3>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl max-w-2xl">
+            Démarrer votre projet
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-            Ready to enhance your property listings with stunning 3D isometric models? Contact us today to get started.
+          <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
+            Prêt à améliorer vos annonces immobilières avec des modèles 3D isométriques époustouflants ? Contactez-nous dès aujourd'hui pour commencer.
           </p>
         </motion.div>
 
-        <div className="mx-auto mt-16 max-w-4xl">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-5">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -65,48 +66,50 @@ export function ContactSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="lg:col-span-2"
             >
-              <h3 className="text-2xl font-bold">Contact Information</h3>
-              <p className="mt-4 text-muted-foreground">
-                Have questions or ready to start your project? Reach out to us using the contact form or our direct contact details.
-              </p>
+              <h3 className="text-2xl font-bold mb-8">Informations de contact</h3>
 
-              <div className="mt-8 space-y-6">
+              <div className="space-y-8">
                 <div className="flex items-start space-x-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                  </div>
+                  <div className="text-primary font-mono text-sm">E:</div>
                   <div>
-                    <h4 className="font-medium">Email</h4>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      info@klikx.com
-                    </p>
+                    <a
+                      href="mailto:contact@klikx.fr"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      contact@klikx.fr
+                    </a>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  </div>
+                  <div className="text-primary font-mono text-sm">T:</div>
                   <div>
-                    <h4 className="font-medium">Phone</h4>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      +1 (555) 123-4567
-                    </p>
+                    <a
+                      href="tel:+33612345678"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      +33 6 12 34 56 78
+                    </a>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  </div>
+                  <div className="text-primary font-mono text-sm">H:</div>
                   <div>
-                    <h4 className="font-medium">Business Hours</h4>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Monday - Friday: 9AM - 5PM<br />
-                      Saturday & Sunday: Closed
+                    <p className="text-muted-foreground">
+                      Lundi - Vendredi: 9h - 18h<br />
+                      Samedi & Dimanche: Fermé
                     </p>
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-12 p-8 bg-primary text-white">
+                <h4 className="text-xl font-bold mb-4">Service client</h4>
+                <p className="mb-6">
+                  Notre équipe est disponible pour répondre à toutes vos questions sur nos services de modélisation 3D isométrique.
+                </p>
+                <div className="text-lg font-bold">+33 6 12 34 56 78</div>
               </div>
             </motion.div>
 
@@ -118,28 +121,28 @@ export function ContactSection() {
               className="lg:col-span-3"
             >
               {isSubmitted ? (
-                <div className="flex h-full flex-col items-center justify-center rounded-lg border border-green-200 bg-green-50 p-8 text-center">
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
+                <div className="flex h-full flex-col items-center justify-center border border-primary/20 bg-primary/5 p-12 text-center">
+                  <div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>
                   </div>
-                  <h3 className="mb-2 text-xl font-semibold text-green-800">Message Sent Successfully!</h3>
-                  <p className="text-green-700">
-                    Thank you for contacting us. We'll get back to you as soon as possible.
+                  <h3 className="mb-4 text-2xl font-bold">Message envoyé avec succès !</h3>
+                  <p className="text-muted-foreground">
+                    Merci de nous avoir contacté. Nous vous répondrons dans les plus brefs délais.
                   </p>
                   <Button
                     onClick={() => setIsSubmitted(false)}
-                    className="mt-6 rounded-full"
+                    className="mt-8 rounded-none"
                     variant="outline"
                   >
-                    Send Another Message
+                    Envoyer un autre message
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 rounded-lg border bg-card p-6 shadow-sm">
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <form onSubmit={handleSubmit} className="space-y-8 border p-8">
+                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                     <div>
                       <label htmlFor="name" className="mb-2 block text-sm font-medium">
-                        Your Name
+                        Votre nom
                       </label>
                       <input
                         id="name"
@@ -148,13 +151,13 @@ export function ContactSection() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        placeholder="John Doe"
+                        className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
+                        placeholder="Jean Dupont"
                       />
                     </div>
                     <div>
                       <label htmlFor="email" className="mb-2 block text-sm font-medium">
-                        Email Address
+                        Adresse email
                       </label>
                       <input
                         id="email"
@@ -163,16 +166,16 @@ export function ContactSection() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        placeholder="john@example.com"
+                        className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
+                        placeholder="jean@exemple.fr"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                     <div>
                       <label htmlFor="phone" className="mb-2 block text-sm font-medium">
-                        Phone Number (Optional)
+                        Numéro de téléphone (Optionnel)
                       </label>
                       <input
                         id="phone"
@@ -180,32 +183,32 @@ export function ContactSection() {
                         type="tel"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        placeholder="+1 (555) 123-4567"
+                        className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
+                        placeholder="+33 6 12 34 56 78"
                       />
                     </div>
                     <div>
                       <label htmlFor="service" className="mb-2 block text-sm font-medium">
-                        Service Package
+                        Forfait de service
                       </label>
                       <select
                         id="service"
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
                       >
-                        <option value="Basic">Basic Package</option>
-                        <option value="Premium">Premium Package</option>
-                        <option value="Deluxe">Deluxe Package</option>
-                        <option value="Custom">Custom Solution</option>
+                        <option value="Basic">Forfait Basic</option>
+                        <option value="Premium">Forfait Premium</option>
+                        <option value="Deluxe">Forfait Deluxe</option>
+                        <option value="Custom">Solution personnalisée</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
                     <label htmlFor="message" className="mb-2 block text-sm font-medium">
-                      Your Message
+                      Votre message
                     </label>
                     <textarea
                       id="message"
@@ -214,17 +217,17 @@ export function ContactSection() {
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                      placeholder="Tell us about your property and what you're looking for..."
+                      className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
+                      placeholder="Parlez-nous de votre propriété et de ce que vous recherchez..."
                     />
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full rounded-full"
+                    className="rounded-none px-8 py-7 text-base"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Sending..." : "Send Message"}
+                    {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
                   </Button>
                 </form>
               )}

@@ -18,7 +18,10 @@ export function HeroSection() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-background py-20 md:py-32 min-h-[90vh] flex items-center">
+    <section
+      ref={ref}
+      className="relative overflow-hidden bg-background py-20 md:py-36 lg:py-44 min-h-[90vh] flex items-center"
+    >
       <div className="container relative z-10 px-4 sm:px-8 md:px-12">
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 lg:gap-16">
           <motion.div
@@ -28,14 +31,21 @@ export function HeroSection() {
             className="flex flex-col space-y-8"
             style={{ opacity }}
           >
-            <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              <span className="block text-primary">Elevating</span> Property Listings with 3D Isometric Modeling
+            <h1 className="giant-heading leading-[0.9] tracking-tight">
+              <span className="block text-primary">MODÈLES 3D</span>{" "}
+              ISOMÉTRIQUES RÉALISTES
             </h1>
-            <p className="max-w-2xl text-lg text-muted-foreground md:text-xl">
-              Klikx creates stunning isometric 3D models of properties, helping Airbnb owners and property management companies increase bookings with captivating visuals.
+            <p className="text-lg text-muted-foreground md:text-xl max-w-[500px]">
+              Klikx crée des modèles 3D isométriques époustouflants pour les
+              propriétaires Airbnb et les conciergeries, augmentant leurs
+              réservations grâce à des visuels captivants.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Button asChild size="lg" className="rounded-full px-8">
+              <Button
+                asChild
+                size="lg"
+                className="rounded-none px-8 py-7 text-base"
+              >
                 <Link
                   to="services"
                   spy={true}
@@ -44,10 +54,15 @@ export function HeroSection() {
                   duration={500}
                   className="cursor-pointer"
                 >
-                  Explore Our Services
+                  Voir nos services
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-full px-8">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="rounded-none px-8 py-7 text-base"
+              >
                 <Link
                   to="contact"
                   spy={true}
@@ -56,7 +71,7 @@ export function HeroSection() {
                   duration={500}
                   className="cursor-pointer"
                 >
-                  Contact Us
+                  Nous contacter
                 </Link>
               </Button>
             </div>
@@ -71,14 +86,14 @@ export function HeroSection() {
             <div className="relative h-[300px] w-full md:h-[500px]">
               <Image
                 src="/images/isometric-house-1.jpg"
-                alt="3D isometric house model"
+                alt="Modèle 3D isométrique d'une maison"
                 fill
                 className="object-contain"
                 priority
               />
             </div>
             <motion.div
-              className="absolute -right-8 -top-8 flex h-20 w-20 items-center justify-center rounded-full bg-primary text-white md:h-24 md:w-24"
+              className="absolute -right-8 -top-8 flex h-20 w-20 items-center justify-center bg-primary text-white md:h-24 md:w-24"
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
             >
