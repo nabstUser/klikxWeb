@@ -5,15 +5,15 @@
 @layer base {
   :root {
     --background: 0 0% 98%;
-    --foreground: 210 10% 23%;
+    --foreground: 0 0% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 210 10% 23%;
+    --card-foreground: 0 0% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 210 10% 23%;
-    --primary: 270 65% 60%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 270 65% 55%;
     --primary-foreground: 0 0% 98%;
     --secondary: 220 15% 96%;
-    --secondary-foreground: 210 10% 23%;
+    --secondary-foreground: 0 0% 12%;
     --muted: 220 14% 96%;
     --muted-foreground: 220 10% 46%;
     --accent: 184 40% 56%;
@@ -22,23 +22,18 @@
     --destructive-foreground: 0 0% 98%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 270 65% 60%;
+    --ring: 270 65% 55%;
     --radius: 0rem;
-    --chart-1: 270 65% 60%;
-    --chart-2: 184 40% 56%;
-    --chart-3: 210 10% 23%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
   }
 
   .dark {
-    --background: 210 10% 10%;
+    --background: 0 0% 12%;
     --foreground: 0 0% 98%;
-    --card: 210 10% 15%;
+    --card: 0 0% 15%;
     --card-foreground: 0 0% 98%;
-    --popover: 210 10% 15%;
+    --popover: 0 0% 15%;
     --popover-foreground: 0 0% 98%;
-    --primary: 270 65% 60%;
+    --primary: 270 65% 55%;
     --primary-foreground: 0 0% 98%;
     --secondary: 215 28% 17%;
     --secondary-foreground: 0 0% 98%;
@@ -50,12 +45,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 215 28% 17%;
     --input: 215 28% 17%;
-    --ring: 270 65% 60%;
-    --chart-1: 270 65% 60%;
-    --chart-2: 184 40% 56%;
-    --chart-3: 210 10% 70%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --ring: 270 65% 55%;
   }
 }
 
@@ -71,26 +61,57 @@
     @apply font-bold tracking-tight;
   }
   h1 {
-    @apply text-4xl sm:text-5xl md:text-6xl;
+    @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase;
   }
   h2 {
-    @apply text-3xl sm:text-4xl md:text-5xl;
+    @apply text-4xl sm:text-5xl md:text-6xl uppercase;
   }
   h3 {
-    @apply text-2xl sm:text-3xl;
+    @apply text-3xl sm:text-4xl uppercase;
+  }
+  .super-title {
+    @apply text-sm uppercase tracking-widest font-medium text-primary mb-4;
   }
 }
 
 @layer utilities {
   .giant-heading {
-    @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight;
+    @apply text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight uppercase;
   }
 
   .section-padding {
     @apply py-20 md:py-32;
   }
 
-  .color-square {
-    @apply aspect-square rounded-none flex items-center justify-center p-6;
+  .container-wide {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .arrow-link {
+    @apply inline-flex items-center gap-2 font-medium;
+  }
+
+  .arrow-link svg {
+    @apply w-4 h-4 transition-transform duration-300 ease-out;
+  }
+
+  .arrow-link:hover svg {
+    @apply transform translate-x-1 translate-y-[-0.25rem];
+  }
+
+  .isometric-card {
+    @apply bg-white p-8 relative overflow-hidden;
+  }
+
+  .number-stat {
+    @apply text-5xl sm:text-6xl md:text-7xl font-bold;
+  }
+
+  .stat-label {
+    @apply text-base font-medium uppercase tracking-wide text-muted-foreground mt-2;
+  }
+
+  .uppercase-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
   }
 }

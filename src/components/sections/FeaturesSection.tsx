@@ -1,184 +1,108 @@
 "use client";
 
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { LayoutGrid, Layers, Eye, Clock, Sparkles, LineChart } from "lucide-react";
-import { useRef } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { Link } from "react-scroll";
 
 const features = [
   {
-    icon: <LayoutGrid className="h-6 w-6" />,
-    title: "Visualisation Claire",
+    title: "Modèles sur mesure",
     description:
-      "Notre vue isométrique offre une vision complète de l'agencement de la propriété, aidant les voyageurs à comprendre l'espace avant de réserver.",
+      "Chaque modèle 3D est entièrement personnalisé selon vos spécifications exactes, capturant fidèlement l'essence et les caractéristiques uniques de votre propriété.",
   },
   {
-    icon: <Layers className="h-6 w-6" />,
-    title: "Niveaux de Détail Personnalisables",
+    title: "Rendu haute qualité",
     description:
-      "Choisissez le niveau de détail qui correspond à vos besoins, des modèles extérieurs simples jusqu'aux visualisations intérieures et extérieures complètes.",
+      "Nos modèles 3D offrent un niveau de détail exceptionnel, avec des textures réalistes, un éclairage parfait et des proportions exactes pour un résultat impressionnant.",
   },
   {
-    icon: <Eye className="h-6 w-6" />,
-    title: "Optimisation des Perspectives",
+    title: "Processus efficace",
     description:
-      "La perspective isométrique offre l'équilibre parfait entre réalisme et clarté, optimisant la perception de l'espace de manière visuellement attrayante.",
+      "Notre flux de travail rationalisé garantit une livraison rapide sans compromettre la qualité, vous permettant d'intégrer rapidement les modèles dans vos listings.",
   },
   {
-    icon: <Clock className="h-6 w-6" />,
-    title: "Réalisation Rapide",
+    title: "Support multiplateforme",
     description:
-      "Obtenez vos modèles 3D plus rapidement que les services de rendu traditionnels, grâce à notre flux de travail optimisé et nos techniques de modélisation efficaces.",
-  }
-];
-
-const stats = [
-  {
-    number: "250+",
-    label: "Modèles 3D Créés",
-    color: "bg-primary",
+      "Les modèles sont optimisés pour toutes les plateformes, qu'il s'agisse de sites web, d'applications mobiles ou de présentations, assurant une expérience visuelle cohérente.",
   },
-  {
-    number: "96%",
-    label: "Taux de Satisfaction",
-    color: "bg-accent",
-  },
-  {
-    number: "30%",
-    label: "Augmentation des Réservations",
-    color: "bg-chart-3",
-  },
-  {
-    number: "48h",
-    label: "Délai Moyen de Livraison",
-    color: "bg-chart-4",
-  }
 ];
 
 export function FeaturesSection() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 },
+    },
+  };
 
   return (
-    <section ref={ref} id="about" className="relative overflow-hidden bg-background section-padding">
-      <div className="container relative z-10 px-4 sm:px-8 md:px-12">
-        <div className="mx-auto mb-20 max-w-4xl">
+    <section className="bg-background py-24 md:py-32" id="features">
+      <div className="container-wide">
+        <div className="max-w-3xl mx-auto mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            viewport={{ once: true, margin: "-100px" }}
           >
-            <h3 className="text-primary font-medium mb-4">Nos Avantages</h3>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl max-w-2xl">
-              Modélisation 3D Isométrique Professionnelle
-            </h2>
-            <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
-              Klikx est une entreprise spécialisée dans la <strong>modélisation 3D isométrique réaliste</strong>, avec un degré de détail adapté en fonction de l'offre choisie. Nous nous adressons principalement aux <strong>propriétaires Airbnb et aux conciergeries</strong>.
+            <div className="super-title">À propos de nos services</div>
+            <h2 className="mb-8">CARACTÉRISTIQUES</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mb-10">
+              Chez Klikx, nous combinons expertise technique et vision artistique pour créer des modèles 3D isométriques qui transforment la façon dont les clients perçoivent les propriétés immobilières.
             </p>
           </motion.div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className={`${stat.color} text-white color-square`}
-            >
-              <div>
-                <div className="text-4xl font-bold mb-2">{stat.number}</div>
-                <div className="text-sm font-medium">{stat.label}</div>
-              </div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16"
+        >
+          {features.map((feature, index) => (
+            <motion.div key={index} variants={itemVariants} className="max-w-md">
+              <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+              <p className="text-muted-foreground">{feature.description}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            style={{ y }}
-          >
-            <div className="relative overflow-hidden">
-              <Image
-                src="/images/isometric-house-2.jpg"
-                alt="Modèle 3D isométrique détaillé"
-                width={600}
-                height={700}
-                className="object-contain"
-              />
-            </div>
-          </motion.div>
-
-          <div className="space-y-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-2xl font-bold mb-6">Pourquoi choisir la modélisation 3D isométrique ?</h3>
-              <p className="text-muted-foreground mb-8">
-                Grâce à des techniques avancées de modélisation 3D, Klikx permet de donner vie aux espaces sous une perspective isométrique, idéale pour <strong>montrer clairement l'aménagement, optimiser l'espace et séduire les voyageurs</strong>.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center bg-primary text-white">
-                    {feature.icon}
-                  </div>
-                  <h3 className="mb-2 text-xl font-medium">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mt-20 text-center"
+          transition={{ duration: 0.5, delay: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="mt-16 flex justify-center"
         >
           <Button
             asChild
-            size="lg"
-            className="rounded-none px-8 py-7 text-base"
+            variant="arrow"
+            size="link"
+            className="group text-lg"
           >
             <Link
-              to="contact"
+              to="services"
               spy={true}
               smooth={true}
               offset={-70}
               duration={500}
               className="cursor-pointer"
             >
-              Démarrer maintenant
+              Voir nos services
             </Link>
           </Button>
         </motion.div>

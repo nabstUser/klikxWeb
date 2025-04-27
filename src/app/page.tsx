@@ -5,13 +5,16 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { StatsSection } from "@/components/sections/StatsSection";
 
 export default function Home() {
   return (
-    <>
+    <main>
       <section id="hero">
         <HeroSection />
       </section>
+
+      <StatsSection />
 
       <section id="features">
         <FeaturesSection />
@@ -34,6 +37,6 @@ export default function Home() {
       </section>
 
       <CtaSection />
-    </>
+    </main>
   );
 }

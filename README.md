@@ -1,6 +1,6 @@
 # Klikx - 3D Isometric Property Modeling
 
-A modern, elegant website for Klikx, a company specialized in realistic isometric 3D modeling services for property listings.
+A modern, elegant website for Klikx, a company specialized in realistic isometric 3D modeling services for property listings, particularly for Airbnb owners and property management companies.
 
 ## Features
 
@@ -29,8 +29,8 @@ A modern, elegant website for Klikx, a company specialized in realistic isometri
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/klikx-website.git
-   cd klikx-website
+   git clone https://github.com/nabstUser/klikxWeb.git
+   cd klikxWeb
    ```
 
 2. Install dependencies:
@@ -52,11 +52,15 @@ A modern, elegant website for Klikx, a company specialized in realistic isometri
 ## Project Structure
 
 ```
-klikx-website/
-├── .github/          # GitHub workflows
+klikxWeb/
 ├── public/           # Static assets
+│   └── images/       # Site images
 ├── src/
-│   ├── app/          # App router pages
+│   ├── app/          # App Router pages
+│   │   ├── about/    # About page
+│   │   ├── contact/  # Contact page
+│   │   ├── process/  # Process page
+│   │   └── services/ # Services page
 │   ├── components/   # React components
 │   │   ├── layout/   # Layout components
 │   │   ├── sections/ # Page sections
@@ -64,6 +68,7 @@ klikx-website/
 │   └── lib/          # Utility functions
 ├── .gitignore
 ├── next.config.js
+├── netlify.toml
 ├── package.json
 ├── README.md
 ├── tailwind.config.ts
@@ -72,7 +77,7 @@ klikx-website/
 
 ## Deployment
 
-This project can be easily deployed to Vercel, Netlify, or any other platform that supports Next.js.
+This project is configured for easy deployment on Netlify or any other platform that supports Next.js.
 
 ```bash
 # Build for production
@@ -88,4 +93,4 @@ bun run start
 
 ## Contributors
 
-- Your Name - Initial work
+- nabstUser - Initial work

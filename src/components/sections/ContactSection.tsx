@@ -5,234 +5,164 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
+  const [formState, setFormState] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-    service: "Basic",
+    submitted: false,
+    loading: false,
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    setFormState({ ...formState, loading: true });
 
-    // Simulate form submission
+    // Simuler un envoi de formulaire
     setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({
+      setFormState({
+        ...formState,
+        submitted: true,
+        loading: false,
         name: "",
         email: "",
         phone: "",
         message: "",
-        service: "Basic",
       });
     }, 1500);
   };
 
   return (
-    <section id="contact" className="bg-muted/30 section-padding">
-      <div className="container px-4 sm:px-8 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-4xl mb-20"
-        >
-          <h3 className="text-primary font-medium mb-4">Contact</h3>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl max-w-2xl">
-            Démarrer votre projet
-          </h2>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
-            Prêt à améliorer vos annonces immobilières avec des modèles 3D isométriques époustouflants ? Contactez-nous dès aujourd'hui pour commencer.
-          </p>
-        </motion.div>
+    <section className="py-24 md:py-32 bg-slate-50">
+      <div className="container-wide">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="super-title">Contactez-nous</div>
+            <h2 className="mb-8">DÉMARREZ VOTRE PROJET</h2>
+            <p className="text-muted-foreground text-lg max-w-lg mb-10">
+              Que vous soyez prêt à commencer ou que vous ayez simplement des questions, notre équipe est là pour vous aider à transformer vos propriétés avec des modèles 3D isométriques époustouflants.
+            </p>
 
-        <div className="mx-auto max-w-5xl">
-          <div className="grid grid-cols-1 gap-16 lg:grid-cols-5">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="lg:col-span-2"
-            >
-              <h3 className="text-2xl font-bold mb-8">Informations de contact</h3>
-
-              <div className="space-y-8">
-                <div className="flex items-start space-x-4">
-                  <div className="text-primary font-mono text-sm">E:</div>
-                  <div>
-                    <a
-                      href="mailto:contact@klikx.fr"
-                      className="text-foreground hover:text-primary transition-colors"
-                    >
-                      contact@klikx.fr
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="text-primary font-mono text-sm">T:</div>
-                  <div>
-                    <a
-                      href="tel:+33612345678"
-                      className="text-foreground hover:text-primary transition-colors"
-                    >
-                      +33 6 12 34 56 78
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="text-primary font-mono text-sm">H:</div>
-                  <div>
-                    <p className="text-muted-foreground">
-                      Lundi - Vendredi: 9h - 18h<br />
-                      Samedi & Dimanche: Fermé
-                    </p>
-                  </div>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Email</h3>
+                <a href="mailto:info@klikx.fr" className="text-muted-foreground hover:text-primary transition-colors">
+                  info@klikx.fr
+                </a>
               </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Téléphone</h3>
+                <a href="tel:+33123456789" className="text-muted-foreground hover:text-primary transition-colors">
+                  +33 1 23 45 67 89
+                </a>
+              </div>
+            </div>
 
-              <div className="mt-12 p-8 bg-primary text-white">
-                <h4 className="text-xl font-bold mb-4">Service client</h4>
-                <p className="mb-6">
-                  Notre équipe est disponible pour répondre à toutes vos questions sur nos services de modélisation 3D isométrique.
+            <div className="border-t border-border pt-8">
+              <h3 className="text-lg font-semibold mb-4">Heures d'ouverture</h3>
+              <p className="text-muted-foreground">
+                Lun - Ven: 9h - 18h<br />
+                Week-end: Fermé
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {formState.submitted ? (
+              <div className="bg-white p-12 border">
+                <h3 className="text-2xl font-semibold mb-4">Merci pour votre message !</h3>
+                <p className="text-muted-foreground mb-8">
+                  Nous avons bien reçu votre demande et nous vous contacterons dans les plus brefs délais.
                 </p>
-                <div className="text-lg font-bold">+33 6 12 34 56 78</div>
+                <Button
+                  onClick={() => setFormState({ ...formState, submitted: false })}
+                  className="rounded-none"
+                >
+                  Envoyer un autre message
+                </Button>
               </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="lg:col-span-3"
-            >
-              {isSubmitted ? (
-                <div className="flex h-full flex-col items-center justify-center border border-primary/20 bg-primary/5 p-12 text-center">
-                  <div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>
+            ) : (
+              <form onSubmit={handleSubmit} className="bg-white p-12 border">
+                <h3 className="text-2xl font-semibold mb-6">Envoyez-nous un message</h3>
+                <div className="space-y-6">
+                  <div className="flex flex-col">
+                    <label htmlFor="name" className="text-sm font-medium mb-2">
+                      Nom complet
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={formState.name}
+                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                      required
+                      className="p-3 border border-border focus:border-primary focus:outline-none transition-colors"
+                    />
                   </div>
-                  <h3 className="mb-4 text-2xl font-bold">Message envoyé avec succès !</h3>
-                  <p className="text-muted-foreground">
-                    Merci de nous avoir contacté. Nous vous répondrons dans les plus brefs délais.
-                  </p>
-                  <Button
-                    onClick={() => setIsSubmitted(false)}
-                    className="mt-8 rounded-none"
-                    variant="outline"
-                  >
-                    Envoyer un autre message
-                  </Button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-8 border p-8">
-                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                    <div>
-                      <label htmlFor="name" className="mb-2 block text-sm font-medium">
-                        Votre nom
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="flex flex-col">
+                      <label htmlFor="email" className="text-sm font-medium mb-2">
+                        Email
                       </label>
                       <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
-                        placeholder="Jean Dupont"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="mb-2 block text-sm font-medium">
-                        Adresse email
-                      </label>
-                      <input
-                        id="email"
-                        name="email"
                         type="email"
-                        value={formData.email}
-                        onChange={handleChange}
+                        id="email"
+                        value={formState.email}
+                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                         required
-                        className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
-                        placeholder="jean@exemple.fr"
+                        className="p-3 border border-border focus:border-primary focus:outline-none transition-colors"
                       />
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                    <div>
-                      <label htmlFor="phone" className="mb-2 block text-sm font-medium">
-                        Numéro de téléphone (Optionnel)
+                    <div className="flex flex-col">
+                      <label htmlFor="phone" className="text-sm font-medium mb-2">
+                        Téléphone (optionnel)
                       </label>
                       <input
-                        id="phone"
-                        name="phone"
                         type="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
-                        placeholder="+33 6 12 34 56 78"
+                        id="phone"
+                        value={formState.phone}
+                        onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                        className="p-3 border border-border focus:border-primary focus:outline-none transition-colors"
                       />
-                    </div>
-                    <div>
-                      <label htmlFor="service" className="mb-2 block text-sm font-medium">
-                        Forfait de service
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
-                      >
-                        <option value="Basic">Forfait Basic</option>
-                        <option value="Premium">Forfait Premium</option>
-                        <option value="Deluxe">Forfait Deluxe</option>
-                        <option value="Custom">Solution personnalisée</option>
-                      </select>
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="message" className="mb-2 block text-sm font-medium">
-                      Votre message
+                  <div className="flex flex-col">
+                    <label htmlFor="message" className="text-sm font-medium mb-2">
+                      Message
                     </label>
                     <textarea
                       id="message"
-                      name="message"
-                      rows={5}
-                      value={formData.message}
-                      onChange={handleChange}
+                      value={formState.message}
+                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                       required
-                      className="w-full border-b border-border bg-transparent px-0 py-2 text-base focus:border-primary focus:outline-none"
-                      placeholder="Parlez-nous de votre propriété et de ce que vous recherchez..."
+                      rows={5}
+                      className="p-3 border border-border focus:border-primary focus:outline-none transition-colors"
                     />
                   </div>
 
                   <Button
                     type="submit"
-                    className="rounded-none px-8 py-7 text-base"
-                    disabled={isSubmitting}
+                    className="rounded-none w-full"
+                    disabled={formState.loading}
+                    withArrow
                   >
-                    {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+                    {formState.loading ? "Envoi en cours..." : "Envoyer le message"}
                   </Button>
-                </form>
-              )}
-            </motion.div>
-          </div>
+                </div>
+              </form>
+            )}
+          </motion.div>
         </div>
       </div>
     </section>
