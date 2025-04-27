@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Link } from "react-scroll";
 
 const features = [
@@ -29,6 +29,28 @@ const features = [
 ];
 
 export function FeaturesSection() {
+  // Références pour les sections animées
+  const titleRef = useRef(null);
+  const featuresRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  // Utiliser useInView pour détecter quand chaque section est visible
+  // with once: false to allow animations to reset and replay when scrolling back
+  const isTitleInView = useInView(titleRef, {
+    margin: "-100px",
+    once: false,
+  });
+
+  const isFeaturesInView = useInView(featuresRef, {
+    margin: "-100px",
+    once: false,
+  });
+
+  const isButtonInView = useInView(buttonRef, {
+    margin: "-100px",
+    once: false,
+  });
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -53,10 +75,10 @@ export function FeaturesSection() {
       <div className="container-wide">
         <div className="max-w-3xl mx-auto mb-16">
           <motion.div
+            ref={titleRef}
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={isTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
-            viewport={{ once: true, margin: "-100px" }}
           >
             <div className="super-title">À propos de nos services</div>
             <h2 className="mb-8">CARACTÉRISTIQUES</h2>
@@ -67,10 +89,10 @@ export function FeaturesSection() {
         </div>
 
         <motion.div
+          ref={featuresRef}
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          animate={isFeaturesInView ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16"
         >
           {features.map((feature, index) => (
@@ -82,18 +104,13 @@ export function FeaturesSection() {
         </motion.div>
 
         <motion.div
+          ref={buttonRef}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
+          animate={isButtonInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
           className="mt-16 flex justify-center"
         >
-          <Button
-            asChild
-            variant="arrow"
-            size="link"
-            className="group text-lg"
-          >
+          <Button asChild variant="arrow" size="link" className="group text-lg">
             <Link
               to="services"
               spy={true}

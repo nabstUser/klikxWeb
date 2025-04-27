@@ -27,24 +27,24 @@
   }
 
   .dark {
-    --background: 0 0% 12%;
+    --background: 0 0% 8%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 15%;
+    --card: 0 0% 10%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 15%;
+    --popover: 0 0% 10%;
     --popover-foreground: 0 0% 98%;
     --primary: 270 65% 55%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 215 28% 17%;
+    --secondary: 215 28% 12%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 215 28% 17%;
+    --muted: 215 28% 12%;
     --muted-foreground: 217.9 10.6% 64.9%;
     --accent: 184 40% 56%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
+    --border: 215 28% 12%;
+    --input: 215 28% 12%;
     --ring: 270 65% 55%;
   }
 }
@@ -52,6 +52,9 @@
 @layer base {
   * {
     @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground font-normal leading-relaxed;
@@ -62,12 +65,15 @@
   }
   h1 {
     @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase;
+    letter-spacing: -0.02em;
   }
   h2 {
     @apply text-4xl sm:text-5xl md:text-6xl uppercase;
+    letter-spacing: -0.02em;
   }
   h3 {
     @apply text-3xl sm:text-4xl uppercase;
+    letter-spacing: -0.01em;
   }
   .super-title {
     @apply text-sm uppercase tracking-widest font-medium text-primary mb-4;
@@ -77,10 +83,11 @@
 @layer utilities {
   .giant-heading {
     @apply text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight uppercase;
+    letter-spacing: -0.03em;
   }
 
   .section-padding {
-    @apply py-20 md:py-32;
+    @apply py-24 md:py-36;
   }
 
   .container-wide {
@@ -104,7 +111,8 @@
   }
 
   .number-stat {
-    @apply text-5xl sm:text-6xl md:text-7xl font-bold;
+    @apply text-6xl sm:text-7xl md:text-8xl font-bold;
+    letter-spacing: -0.02em;
   }
 
   .stat-label {
@@ -113,5 +121,103 @@
 
   .uppercase-grid {
     @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  /* Nouvelles classes */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .gradient-text {
+    @apply clip-text bg-gradient-to-r from-primary via-accent to-primary;
+  }
+
+  .image-hover-zoom {
+    @apply overflow-hidden;
+  }
+
+  .image-hover-zoom img {
+    @apply transition-transform duration-700 ease-out;
+  }
+
+  .image-hover-zoom:hover img {
+    @apply scale-105;
+  }
+
+  .parallax-section {
+    @apply relative overflow-hidden;
+    perspective: 1000px;
+  }
+
+  .blur-backdrop {
+    @apply backdrop-blur-lg bg-background/50;
+  }
+
+  .frosted-glass {
+    @apply bg-white/10 backdrop-blur-md;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .shimmer {
+    @apply relative overflow-hidden before:absolute before:inset-0;
+    isolation: isolate;
+  }
+
+  .shimmer::before {
+    content: '';
+    z-index: 1;
+    animation: shimmer 2s infinite;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-100%);
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+/* Animation pour les compteurs */
+.number-counter {
+  display: inline-block;
+  position: relative;
+}
+
+/* Créer un pseudo-élément pour les reflets */
+.reflection::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.08) 38%,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0) 48%
+  );
+  transform: translateX(-100%);
+  animation: shimmer-sweep 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer-sweep {
+  100% {
+    transform: translateX(100%);
   }
 }

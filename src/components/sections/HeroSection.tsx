@@ -9,28 +9,34 @@ import { Link } from "react-scroll";
 
 export function HeroSection() {
   const ref = useRef(null);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.5]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  // Effets de parallax améliorés pour plus d'impact
+  const y = useTransform(scrollYProgress, [0, 1], [0, 250]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.2]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+
+  // Éléments d'arrière-plan avec effets plus prononcés
+  const bgLeft = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const bgRight = useTransform(scrollYProgress, [0, 1], [0, -150]);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden bg-background"
+      className="relative min-h-screen pt-36 pb-24 flex items-center overflow-hidden bg-background"
     >
-      {/* Background Elements */}
+      {/* Éléments d'arrière-plan avec blur plus prononcé */}
       <motion.div
-        className="absolute -bottom-48 -left-48 h-96 w-96 rounded-full bg-primary/5 blur-3xl z-0"
-        style={{ y: useTransform(scrollYProgress, [0, 1], [0, 100]) }}
+        className="absolute -bottom-48 -left-48 h-[500px] w-[500px] rounded-full bg-primary/10 blur-3xl z-0"
+        style={{ y: bgLeft }}
       />
       <motion.div
-        className="absolute -right-48 top-10 h-96 w-96 rounded-full bg-primary/5 blur-3xl z-0"
-        style={{ y: useTransform(scrollYProgress, [0, 1], [0, -100]) }}
+        className="absolute -right-48 top-0 h-[500px] w-[500px] rounded-full bg-primary/10 blur-3xl z-0"
+        style={{ y: bgRight }}
       />
 
       <div className="container-wide relative">
@@ -40,27 +46,27 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col space-y-8 lg:col-span-7 relative z-20"
+            className="flex flex-col space-y-10 lg:col-span-7 relative z-20"
             style={{ opacity }}
           >
             <div>
-              <div className="super-title">Création de modèles époustouflants</div>
-              <h1 className="leading-[0.9] tracking-tight">
-                MODÈLES 3D{" "}
+              <div className="super-title mb-6">Création de modèles révolutionnaires</div>
+              <h1 className="leading-[0.9] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase font-bold">
+                MODÈLES 3D
                 <span className="text-primary block">ISOMÉTRIQUES</span>
                 RÉALISTES
               </h1>
             </div>
 
-            <p className="text-lg text-muted-foreground max-w-xl">
-              Que vous soyez propriétaire Airbnb ou une agence immobilière, Klikx crée des modèles 3D isométriques captivants qui augmentent vos réservations et valorisent votre propriété.
+            <p className="text-xl text-muted-foreground max-w-xl">
+              Que vous soyez propriétaire Airbnb ou une agence immobilière, Klikx crée des modèles 3D isométriques captivants qui augmentent vos réservations et valorisent votre propriété comme jamais auparavant.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-6 pt-6">
               <Button
                 asChild
                 size="lg"
-                className="rounded-none px-8 py-7 text-base"
+                className="rounded-none px-10 py-8 text-lg font-medium"
               >
                 <Link
                   to="services"
@@ -71,7 +77,7 @@ export function HeroSection() {
                   className="cursor-pointer flex items-center"
                 >
                   Voir nos services
-                  <Arrow direction="up-right" className="ml-2" />
+                  <Arrow direction="up-right" className="ml-3 w-5 h-5" />
                 </Link>
               </Button>
 
@@ -82,19 +88,19 @@ export function HeroSection() {
                   smooth={true}
                   offset={-70}
                   duration={500}
-                  className="cursor-pointer text-primary font-medium flex items-center"
+                  className="cursor-pointer text-primary font-medium text-lg flex items-center"
                 >
                   Nous contacter
                   <Arrow
                     direction="up-right"
-                    className="ml-2 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    className="ml-3 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                   />
                 </Link>
               </div>
             </div>
           </motion.div>
 
-          {/* Image à droite - 5 colonnes sur desktop */}
+          {/* Image à droite - 5 colonnes sur desktop avec effet 3D plus prononcé */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -102,23 +108,23 @@ export function HeroSection() {
             className="relative lg:col-span-5 z-10"
             style={{ y, scale }}
           >
-            <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full">
+            <div className="relative h-[350px] md:h-[450px] lg:h-[550px] w-full">
               <Image
                 src="/images/isometric-house-1.jpg"
                 alt="Modèle 3D isométrique d'une maison"
                 fill
-                className="object-contain"
+                className="object-contain hover:scale-105 transition-transform duration-700"
                 priority
               />
             </div>
 
             <motion.div
-              className="absolute -right-8 top-0 flex h-20 w-20 items-center justify-center bg-primary text-white md:h-24 md:w-24"
+              className="absolute -right-8 top-0 flex h-24 w-24 items-center justify-center bg-primary text-white md:h-28 md:w-28"
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
             >
               <div className="text-center">
-                <div className="text-lg font-bold md:text-xl">100%</div>
+                <div className="text-xl font-bold md:text-2xl">100%</div>
                 <div className="text-sm md:text-base">Custom</div>
               </div>
             </motion.div>

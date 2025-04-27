@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-scroll";
+import { useRef } from "react";
 
 const steps = [
   {
@@ -44,14 +45,39 @@ const steps = [
 ];
 
 export function ProcessSection() {
+  const titleRef = useRef(null);
+  const ctaRef = useRef(null);
+  const stepsRefs = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
+
+  const isTitleInView = useInView(titleRef, {
+    once: false,
+    margin: "-100px"
+  });
+
+  const isCtaInView = useInView(ctaRef, {
+    once: false,
+    margin: "-100px"
+  });
+
+  const stepsInView = stepsRefs.map(ref =>
+    useInView(ref, { once: false, margin: "-100px" })
+  );
+
   return (
     <section id="process" className="bg-background section-padding">
       <div className="container px-4 sm:px-8 md:px-12">
         <div className="mx-auto mb-20">
           <motion.div
+            ref={titleRef}
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={isTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
           >
             <h3 className="text-primary font-medium mb-4">Notre Méthode</h3>
@@ -69,9 +95,9 @@ export function ProcessSection() {
             {steps.slice(0, 3).map((step, index) => (
               <motion.div
                 key={step.number}
+                ref={stepsRefs[index]}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={stepsInView[index] ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="relative"
               >
@@ -86,10 +112,10 @@ export function ProcessSection() {
             {steps.slice(3).map((step, index) => (
               <motion.div
                 key={step.number}
+                ref={stepsRefs[index + 3]}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (index + 3) * 0.1 }}
+                animate={stepsInView[index + 3] ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="relative"
               >
                 <div className="text-primary text-xs font-mono mb-2">{step.number}</div>
@@ -102,9 +128,9 @@ export function ProcessSection() {
 
         {/* CTA Button */}
         <motion.div
+          ref={ctaRef}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={isCtaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
           className="mt-24 text-center"
         >

@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { CheckCircle } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-scroll";
 import Image from "next/image";
 
@@ -57,25 +57,71 @@ const packages = [
 ];
 
 export function ServicesSection() {
-  const ref = useRef(null);
+  const sectionRef = useRef(null);
+  const titleRef = useRef(null);
+  const imageRef = useRef(null);
+  const ctaRef = useRef(null);
   const [activeTab, setActiveTab] = useState("premium");
+  const [scrollDirection, setScrollDirection] = useState("down");
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Utiliser useInView pour chaque section animée
+  const isTitleInView = useInView(titleRef, {
+    once: false,
+    margin: "-100px"
+  });
+
+  const isImageInView = useInView(imageRef, {
+    once: false,
+    margin: "-100px"
+  });
+
+  const isCtaInView = useInView(ctaRef, {
+    once: false,
+    margin: "-100px"
+  });
+
+  // Détecter la direction du défilement
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY) {
+        setScrollDirection("down");
+      } else {
+        setScrollDirection("up");
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  // Créer un effet de parallax qui s'inverse automatiquement
+  const y1 = useTransform(
+    scrollYProgress,
+    [0, 1],
+    scrollDirection === "down" ? [-50, 50] : [50, -50]
+  );
+
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.5, 1, 1, 0.5]);
 
   return (
-    <section ref={ref} id="services" className="relative overflow-hidden bg-background section-padding">
+    <section ref={sectionRef} id="services" className="relative overflow-hidden bg-background section-padding">
       <div className="container relative z-10 px-4 sm:px-8 md:px-12">
         <div className="mx-auto mb-20">
           <motion.div
+            ref={titleRef}
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={isTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
           >
             <h3 className="text-primary font-medium mb-4">Nos Offres</h3>
@@ -151,9 +197,9 @@ export function ServicesSection() {
           </div>
 
           <motion.div
+            ref={imageRef}
             initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            animate={isImageInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.7 }}
             style={{ y: y1 }}
             className="relative h-[500px] md:h-[600px] bg-muted/30 hidden md:block"
@@ -196,9 +242,9 @@ export function ServicesSection() {
 
         {/* CTA Button */}
         <motion.div
+          ref={ctaRef}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={isCtaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
           className="text-center"
         >

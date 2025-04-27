@@ -1,91 +1,137 @@
 "use client";
 
-import type React from "react";
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useInView } from "framer-motion";
 
 interface CounterProps {
   end: number;
-  duration?: number; // en millisecondes
+  duration?: number;
   suffix?: string;
   prefix?: string;
   decimals?: number;
   className?: string;
+  isVisible?: boolean;
 }
 
 export const Counter: React.FC<CounterProps> = ({
   end,
-  duration = 2000,
+  duration = 0.8, // Encore plus rapide, 0.8 seconde
   suffix = "",
   prefix = "",
   decimals = 0,
-  className = "",
+  className,
+  isVisible: externalIsVisible,
 }) => {
   const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => {
-    if (isInView && !hasAnimated) {
-      let startTime: number | null = null;
-      let animationFrame: number;
-
-      const step = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-
-        // Utilisation d'une fonction d'easing pour rendre l'animation plus naturelle
-        // EaseOutExpo fait ralentir l'animation vers la fin
-        const easeOutExpo = 1 - Math.pow(2, -10 * progress);
-
-        setCount(Math.min(easeOutExpo * end, end));
-
-        if (progress < 1) {
-          animationFrame = requestAnimationFrame(step);
-        } else {
-          setHasAnimated(true);
-        }
-      };
-
-      animationFrame = requestAnimationFrame(step);
-      return () => cancelAnimationFrame(animationFrame);
-    }
-  }, [isInView, end, duration, hasAnimated]);
-
-  // Formatage du nombre avec des décimales et séparateurs si nécessaire
-  const formattedCount = count.toLocaleString(undefined, {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
+  // Utiliser la visibilité externe si fournie, sinon détecter avec useInView
+  const internalIsVisible = useInView(ref, {
+    once: false,
+    amount: 0.5,
+    margin: "-5% 0px",
   });
 
+  // Prioriser la visibilité externe si elle est fournie
+  const isVisible = externalIsVisible !== undefined ? externalIsVisible : internalIsVisible;
+
+  // Référence à l'animation frame pour pouvoir l'annuler
+  const animationRef = useRef<number | null>(null);
+
+  // Temps de départ de l'animation
+  const startTimeRef = useRef<number | null>(null);
+
+  // Version précédente de isVisible pour détecter les changements
+  const prevIsVisibleRef = useRef(isVisible);
+
+  // Pour mémoriser la valeur de départ à chaque animation
+  const startValueRef = useRef<number>(0);
+
+  useEffect(() => {
+    // Ne déclencher l'animation que si isVisible a changé
+    if (prevIsVisibleRef.current === isVisible) return;
+    prevIsVisibleRef.current = isVisible;
+
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+
+    startTimeRef.current = null;
+
+    // Définir la valeur de départ selon la direction du changement
+    const startValue = isVisible ? 0 : end;
+    startValueRef.current = startValue;
+
+    // Mettre à jour immédiatement la valeur affichée pour éviter les sauts
+    setCount(startValue);
+
+    const targetValue = isVisible ? end : 0;
+
+    const animate = (timestamp: number) => {
+      if (!startTimeRef.current) {
+        startTimeRef.current = timestamp;
+      }
+
+      const elapsedTime = timestamp - startTimeRef.current;
+      const progress = Math.min(elapsedTime / (duration * 1000), 1);
+
+      // Easing plus rapide (easeOutQuad)
+      const easeOutQuad = 1 - Math.pow(1 - progress, 2);
+
+      // Interpoler entre la valeur de départ et la valeur cible
+      const newCount = startValueRef.current + (targetValue - startValueRef.current) * easeOutQuad;
+
+      setCount(newCount);
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        // Assurer que la valeur finale est exacte
+        setCount(targetValue);
+      }
+    };
+
+    // Démarrer l'animation seulement si la valeur cible est différente de la valeur actuelle
+    if (startValue !== targetValue) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
+    };
+  }, [isVisible, end, duration]);
+
   return (
-    <div ref={ref} className={className}>
+    <span ref={ref} className={className}>
       {prefix}
-      {formattedCount}
+      {count.toFixed(decimals)}
       {suffix}
-    </div>
+    </span>
   );
 };
 
-// Variante qui prend une chaîne comme "10+" ou "98%" et extrait le nombre
+// Composant utilitaire pour analyser des valeurs comme "10+" ou "98%"
 export const AnimatedValue: React.FC<{
   value: string;
   className?: string;
   duration?: number;
-}> = ({ value, className, duration = 2000 }) => {
-  // Extraction du nombre et du suffixe/préfixe
+  isVisible?: boolean;
+}> = ({ value, className, duration = 0.8, isVisible }) => {
+  // Extraire le nombre et le suffixe/préfixe
   const numericMatch = value.match(/([+-]?\d+(\.\d+)?)/);
 
   if (!numericMatch) {
-    return <div className={className}>{value}</div>;
+    return <span className={className}>{value}</span>;
   }
 
-  const numericValue = Number.parseFloat(numericMatch[0]);
+  const numericValue = parseFloat(numericMatch[0]);
   const prefix = value.substring(0, value.indexOf(numericMatch[0]));
   const suffix = value.substring(value.indexOf(numericMatch[0]) + numericMatch[0].length);
 
-  // Détermination des décimales en fonction de la valeur d'entrée
   const decimals = numericMatch[0].includes(".")
     ? numericMatch[0].split(".")[1].length
     : 0;
@@ -98,6 +144,7 @@ export const AnimatedValue: React.FC<{
       decimals={decimals}
       className={className}
       duration={duration}
+      isVisible={isVisible}
     />
   );
 };
